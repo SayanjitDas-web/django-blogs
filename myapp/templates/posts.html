@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Posts</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --ink: #111010;
+            --paper: #F5F0E8;
+            --accent: #C8401B;
+            --muted: #8a8070;
+            --card-bg: #FDFAF4;
+            --border: #D9D2C5;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--paper);
+            color: var(--ink);
+            font-family: 'DM Sans', sans-serif;
+            min-height: 100vh;
+        }
+
+        /* ── TOP BAR ── */
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 48px;
+            border-bottom: 1px solid var(--border);
+            background: var(--paper);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .topbar-brand {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.1rem;
+            letter-spacing: 0.04em;
+            color: var(--ink);
+            text-decoration: none;
+        }
+
+        .topbar-brand span {
+            color: var(--accent);
+        }
+
+        #logout-form {
+            margin: 0;
+        }
+
+        #logout-form button {
+            background: transparent;
+            border: 1.5px solid var(--ink);
+            color: var(--ink);
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.78rem;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            padding: 7px 20px;
+            border-radius: 2px;
+            cursor: pointer;
+            transition: background 0.2s, color 0.2s;
+        }
+
+        #logout-form button:hover {
+            background: var(--ink);
+            color: var(--paper);
+        }
+
+        /* ── HERO HEADER ── */
+        .hero {
+            padding: 64px 48px 40px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            gap: 24px;
+        }
+
+        .hero-left {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .hero-eyebrow {
+            font-size: 0.72rem;
+            font-weight: 500;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--accent);
+        }
+
+        h1 {
+            font-family: 'DM Serif Display', serif;
+            font-size: clamp(2.8rem, 6vw, 5rem);
+            line-height: 1;
+            font-weight: 400;
+            color: var(--ink);
+            letter-spacing: -0.02em;
+        }
+
+        h1 em {
+            font-style: italic;
+            color: var(--muted);
+        }
+
+        .hero-count {
+            font-size: 0.78rem;
+            color: var(--muted);
+            letter-spacing: 0.05em;
+            align-self: flex-end;
+            padding-bottom: 8px;
+        }
+
+        .divider-line {
+            width: 48px;
+            height: 2px;
+            background: var(--accent);
+            margin-top: 4px;
+        }
+
+        /* ── CARD GRID ── */
+        #card-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 0;
+            padding: 0;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-right: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            padding: 36px 32px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 200px;
+            position: relative;
+            overflow: hidden;
+            transition: background 0.25s;
+            animation: fadeUp 0.5s ease both;
+        }
+
+        .card:nth-child(1) { animation-delay: 0.05s; }
+        .card:nth-child(2) { animation-delay: 0.10s; }
+        .card:nth-child(3) { animation-delay: 0.15s; }
+        .card:nth-child(4) { animation-delay: 0.20s; }
+        .card:nth-child(5) { animation-delay: 0.25s; }
+        .card:nth-child(6) { animation-delay: 0.30s; }
+        .card:nth-child(n+7) { animation-delay: 0.35s; }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 0; height: 2px;
+            background: var(--accent);
+            transition: width 0.35s ease;
+        }
+
+        .card:hover {
+            background: #fff;
+        }
+
+        .card:hover::before {
+            width: 100%;
+        }
+
+        .card-number {
+            font-size: 0.68rem;
+            font-weight: 500;
+            letter-spacing: 0.15em;
+            color: var(--border);
+            text-transform: uppercase;
+            margin-bottom: 16px;
+            transition: color 0.25s;
+        }
+
+        .card:hover .card-number {
+            color: var(--accent);
+        }
+
+        .card h2 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.35rem;
+            font-weight: 400;
+            line-height: 1.3;
+            color: var(--ink);
+            flex: 1;
+            margin-bottom: 28px;
+        }
+
+        .card-footer {
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .read-more {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--ink);
+            text-decoration: none;
+            transition: gap 0.25s, color 0.25s;
+        }
+
+        .read-more::after {
+            content: '→';
+            font-size: 0.9rem;
+            transition: transform 0.25s;
+        }
+
+        .card:hover .read-more {
+            color: var(--accent);
+            gap: 14px;
+        }
+
+        .card:hover .read-more::after {
+            transform: translateX(4px);
+        }
+
+        /* ── EMPTY STATE ── */
+        .empty-state {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 100px 48px;
+            color: var(--muted);
+        }
+
+        .empty-state p {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.6rem;
+            font-style: italic;
+        }
+
+        /* ── FOOTER ── */
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 24px 48px;
+            display: flex;
+            justify-content: center;
+            margin-top: 0;
+        }
+
+        footer p {
+            font-size: 0.72rem;
+            color: var(--muted);
+            letter-spacing: 0.08em;
+        }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 640px) {
+            .topbar { padding: 16px 24px; }
+            .hero { padding: 40px 24px 32px; flex-direction: column; align-items: flex-start; }
+            #card-container { grid-template-columns: 1fr; }
+            footer { padding: 20px 24px; }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- TOP BAR -->
+    <header class="topbar">
+        <a class="topbar-brand" href="#">The<span>Post</span></a>
+        <form action="{% url 'logout' %}" method="POST" id="logout-form">
+            {% csrf_token %}
+            <button type="submit">Sign out</button>
+        </form>
+    </header>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-left">
+            <span class="hero-eyebrow">Latest Writing</span>
+            <h1>All <em>Posts</em></h1>
+            <div class="divider-line"></div>
+        </div>
+        <span class="hero-count">{{ posts|length }} article{% if posts|length != 1 %}s{% endif %}</span>
+    </section>
+
+    <!-- CARD GRID -->
+    <main id="card-container">
+        {% for post in posts %}
+        <article class="card">
+            <span class="card-number">{{ forloop.counter|stringformat:"02d" }}</span>
+            <h2>{{ post.title }}</h2>
+            <div class="card-footer">
+                <a href="{% url 'get_single_post' post.id %}" class="read-more">Read more</a>
+            </div>
+        </article>
+        {% empty %}
+        <div class="empty-state">
+            <p>No posts yet — check back soon.</p>
+        </div>
+        {% endfor %}
+    </main>
+
+    <footer>
+        <p>© {% now "Y" %} · All rights reserved</p>
+    </footer>
+
+</body>
+</html>
