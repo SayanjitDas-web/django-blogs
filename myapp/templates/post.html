@@ -116,6 +116,22 @@
             margin: 40px 0;
         }
 
+        /* ── POST IMAGE ── */
+        .post-image-wrapper {
+            margin-bottom: 40px;
+            border-radius: 4px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+        }
+
+        .post-image {
+            width: 100%;
+            height: auto;
+            max-height: 480px;
+            object-fit: cover;
+            display: block;
+        }
+
         /* ── POST BODY ── */
         .post-content {
             font-size: 1.05rem;
@@ -384,6 +400,13 @@
         <h1 class="post-title">{{ post.title }}</h1>
 
         <hr class="post-divider">
+
+        <!-- Post Image -->
+        {% if post.image %}
+        <div class="post-image-wrapper">
+            <img src="{{ post.image.url }}" alt="{{ post.title }}" class="post-image">
+        </div>
+        {% endif %}
 
         <!-- Post Body -->
         <p class="post-content">{{ post.content }}</p>
